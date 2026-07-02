@@ -21,12 +21,12 @@ export default function ContactSection() {
         className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent/10 via-card to-card border border-accent/10 p-10 md:p-16 lg:p-20 text-center"
       >
         <motion.div
-          className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full blur-[100px] pointer-events-none"
+          className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full blur-[100px] pointer-events-none will-animate"
           animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.7, 0.5] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 rounded-full blur-[80px] pointer-events-none"
+          className="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 rounded-full blur-[80px] pointer-events-none will-animate"
           animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.6, 0.4] }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         />

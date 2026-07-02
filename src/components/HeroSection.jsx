@@ -17,12 +17,12 @@ export default function HeroSection() {
       animate={isInView ? 'visible' : 'hidden'}
     >
       <motion.div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-accent/5 rounded-full blur-[150px] pointer-events-none"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-accent/5 rounded-full blur-[150px] pointer-events-none will-animate"
         animate={{ scale: [1, 1.05, 1], opacity: [0.5, 0.7, 0.5] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute bottom-0 right-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px] pointer-events-none"
+        className="absolute bottom-0 right-0 w-80 h-80 bg-accent/5 rounded-full blur-[100px] pointer-events-none will-animate"
         animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.6, 0.4] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       />
