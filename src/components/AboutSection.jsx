@@ -37,7 +37,6 @@ export default function AboutSection() {
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"
                   preload
-                  loading="lazy"
                 />
                 <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-dark/60 to-transparent" />
               </motion.div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
@@ -11,7 +12,7 @@ const projects = [
     year: '2026',
     desc: 'Aplikasi buku tamu digital berbasis web dengan fitur QR code checkin, dan dashboard real-time untuk acara dan kunjungan.',
     tech: ['Next.js', 'Tailwind CSS', 'MySQL'],
-    gradient: 'from-accent/25 to-accent/5',
+    image: '/Project Buku Tamu Digital.webp',
   },
   {
     title: 'Website UMKM Jajannya Mimitha',
@@ -19,7 +20,8 @@ const projects = [
     year: '2026',
     desc: 'Website UMKM kuliner dengan sistem pemesanan online, manajemen menu dinamis, dan integrasi pembayaran digital.',
     tech: ['Next.js', 'Tailwind CSS', 'MySQL'],
-    gradient: 'from-accent/20 to-accent/5',
+    image: '/Project UMKM.webp',
+    link: 'https://jajannya-mimitha.vercel.app',
   },
   {
     title: 'Portofolio Habib Rahman',
@@ -27,7 +29,7 @@ const projects = [
     year: '2026',
     desc: 'Platform komunitas untuk berbagi dan menemukan prompt AI terbaik. Fitur voting, kategori, dan pencarian lanjutan.',
     tech: ['HTML', 'CSS'],
-    gradient: 'from-accent/15 to-accent/5',
+    image: '/Project Portofolio Habib Rahman.webp',
   },
 ];
 
@@ -77,20 +79,27 @@ export default function SelectedWorkSection() {
               className="group grid md:grid-cols-12 gap-0 bg-card rounded-[2rem] border border-white/5 overflow-hidden hover:border-accent/20 transition-colors duration-300 hover:shadow-xl hover:shadow-accent/5"
             >
               <div className="md:col-span-5 relative overflow-hidden">
-                <div
-                  className={`w-full h-56 md:h-full min-h-[240px] bg-gradient-to-br ${project.gradient} flex items-center justify-center relative`}
-                >
-                  <div className="absolute inset-0 bg-dark/10" />
-                  <div className="relative text-center">
-                    <motion.span
-                      className="block text-6xl md:text-7xl font-bold text-light/10"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      {String(idx + 1).padStart(2, '0')}
-                    </motion.span>
-                    <span className="block text-xs text-accent/40 font-mono mt-2">
-                      {project.type}
-                    </span>
+                <div className="w-full h-56 md:h-full min-h-[240px] relative">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                  />
+                  <div className="absolute inset-0 bg-dark/40" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <motion.span
+                        className="block text-6xl md:text-7xl font-bold text-light/20"
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        {String(idx + 1).padStart(2, '0')}
+                      </motion.span>
+                      <span className="block text-xs text-accent/60 font-mono mt-2">
+                        {project.type}
+                      </span>
+                    </div>
                   </div>
                   <div className="absolute bottom-4 left-4 flex gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-accent/40" />
@@ -126,6 +135,25 @@ export default function SelectedWorkSection() {
                     </span>
                   ))}
                 </div>
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/link"
+                  >
+                    <span>Lihat Demo</span>
+                    <svg
+                      className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1 group-hover/link:-translate-y-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
