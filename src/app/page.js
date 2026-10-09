@@ -3,19 +3,16 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 
 const AboutSection = dynamic(() => import("@/components/AboutSection"), {
-  loading: () => <div className="py-16 md:py-20" />,
+  loading: () => <div className="py-24 md:py-32" />,
 });
-const ServicesSection = dynamic(() => import("@/components/ServicesSection"), {
-  loading: () => <div className="py-16 md:py-20" />,
+const SkillsSection = dynamic(() => import("@/components/SkillsSection"), {
+  loading: () => <div className="py-24 md:py-32" />,
 });
 const SelectedWorkSection = dynamic(() => import("@/components/SelectedWorkSection"), {
-  loading: () => <div className="py-20 md:py-24" />,
-});
-const ProcessSection = dynamic(() => import("@/components/ProcessSection"), {
-  loading: () => <div className="py-16 md:py-20" />,
+  loading: () => <div className="py-24 md:py-32" />,
 });
 const ContactSection = dynamic(() => import("@/components/ContactSection"), {
-  loading: () => <div className="py-16 md:py-20" />,
+  loading: () => <div className="py-24 md:py-32" />,
 });
 const Footer = dynamic(() => import("@/components/Footer"), {
   loading: () => <div className="py-10" />,
@@ -25,12 +22,13 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <SelectedWorkSection />
-      <ProcessSection />
-      <ContactSection />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <SelectedWorkSection />
+        <ContactSection />
+      </main>
       <Footer />
     </>
   );

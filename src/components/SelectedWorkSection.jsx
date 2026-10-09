@@ -1,164 +1,233 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
-import { fadeInUp, staggerContainer } from '@/lib/animations';
+import { useEffect } from "react";
+import Image from "next/image";
+import { PiArrowUpRight } from "react-icons/pi";
+import { gsap, useReveal, NO_MOTION_QUERY } from "@/lib/animations";
 
 const projects = [
   {
-    title: 'Buku Tamu Digital',
-    type: 'Web App',
-    year: '2026',
-    desc: 'Aplikasi buku tamu digital berbasis web dengan fitur QR code checkin, dan dashboard real-time untuk acara dan kunjungan.',
-    tech: ['Next.js', 'Tailwind CSS', 'MySQL'],
-    image: '/Project Buku Tamu Digital.webp',
+    title: "Tamuin",
+    type: "Web App",
+    year: "2026",
+    desc: "Aplikasi berbasis web dengan fitur QR code check-in dan dashboard real-time untuk acara dan kunjungan.",
+    tech: ["Next.js", "Tailwind CSS", "Supabase"],
+    image: "/Project Buku Tamu Digital.webp",
   },
   {
-    title: 'Website UMKM Jajannya Mimitha',
-    type: 'Business Website',
-    year: '2026',
-    desc: 'Website UMKM kuliner dengan sistem pemesanan online, manajemen menu dinamis, dan integrasi pembayaran digital.',
-    tech: ['Next.js', 'Tailwind CSS', 'MySQL'],
-    image: '/Project UMKM.webp',
-    link: 'https://jajannya-mimitha.vercel.app',
+    title: "E-commerce Jajannya Mimitha",
+    type: "Business Website",
+    year: "2026",
+    desc: "E-commerce UMKM kuliner dengan sistem pemesanan online, manajemen menu dinamis, dan integrasi pembayaran digital.",
+    tech: ["Next.js", "Tailwind CSS", "MySQL"],
+    image: "/Project UMKM.webp",
+    link: "https://jajannya-mimitha.vercel.app",
   },
   {
-    title: 'Portofolio Habib Rahman',
-    type: 'Platform',
-    year: '2026',
-    desc: 'Platform komunitas untuk berbagi dan menemukan prompt AI terbaik. Fitur voting, kategori, dan pencarian lanjutan.',
-    tech: ['HTML', 'CSS'],
-    image: '/Project Portofolio Habib Rahman.webp',
+    title: "Portofolio Habib Rahman",
+    type: "Platform",
+    year: "2026",
+    desc: "Website portofolio pribadi yang menampilkan proyek, keterampilan, dan pengalaman profesional dengan desain responsif dan interaktif.",
+    tech: ["HTML", "CSS"],
+    image: "/Project Portofolio Habib Rahman.webp",
   },
 ];
 
-export default function SelectedWorkSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+function ProjectCard({ project, index, featured = false }) {
+  const interactive = Boolean(project.link);
+  const Wrapper = interactive ? "a" : "article";
+  const linkProps = interactive
+    ? { href: project.link, target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
+  const media = (
+    <div
+      className={`relative overflow-hidden bg-paper ${
+        featured
+          ? "aspect-[16/10] md:col-span-7 md:aspect-auto md:min-h-[400px]"
+          : "aspect-[16/10]"
+      }`}
+    >
+      <Image
+        src={project.image}
+        alt={`Screenshot of ${project.title}`}
+        fill
+        sizes={
+          featured
+            ? "(max-width: 768px) 100vw, 58vw"
+            : "(max-width: 768px) 100vw, 46vw"
+        }
+        className="object-cover"
+        data-project-image={interactive ? "" : undefined}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-ink/20 to-transparent"
+      />
+    </div>
+  );
+
+  const body = (
+    <div
+      className={`flex flex-col justify-center p-7 md:p-9 ${
+        featured ? "md:col-span-5" : ""
+      }`}
+    >
+      <div className="flex flex-wrap items-center gap-3 text-[0.7rem] uppercase tracking-[0.2em]">
+        <span className="font-display text-sm normal-case tracking-normal text-accent">
+          0{index + 1}
+        </span>
+        <span aria-hidden="true" className="h-3 w-px bg-line-strong" />
+        <span className="text-ink-soft">{project.type}</span>
+        <span aria-hidden="true" className="h-3 w-px bg-line-strong" />
+        <span className="text-muted">{project.year}</span>
+      </div>
+
+      <h3
+        className={`mt-4 font-display text-2xl leading-tight text-ink transition-colors duration-200 md:text-[1.75rem] ${
+          interactive ? "group-hover:text-accent" : ""
+        }`}
+      >
+        {project.title}
+      </h3>
+
+      <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+        {project.desc}
+      </p>
+
+      <ul className="mt-5 flex flex-wrap gap-2">
+        {project.tech.map((tech) => (
+          <li
+            key={tech}
+            className="rounded-full border border-line bg-paper px-3 py-1.5 text-xs text-muted"
+          >
+            {tech}
+          </li>
+        ))}
+      </ul>
+
+      {interactive && (
+        <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent">
+          View live site
+          <PiArrowUpRight
+            aria-hidden="true"
+            className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
+        </span>
+      )}
+    </div>
+  );
 
   return (
-    <motion.section
-      ref={ref}
+    <div data-reveal className={featured ? "md:col-span-12" : "h-full"}>
+      <Wrapper
+        {...linkProps}
+        data-project-hover={interactive ? "" : undefined}
+        className={`group h-full overflow-hidden rounded-[1.75rem] border border-line bg-surface transition-[border-color,box-shadow] duration-300 ${
+          featured ? "grid md:grid-cols-12" : "block"
+        } ${
+          interactive
+            ? "hover:border-accent/40 hover:shadow-[0_24px_48px_-32px_rgba(21,23,26,0.45)] focus-within:border-accent"
+            : ""
+        }`}
+      >
+        {media}
+        {body}
+      </Wrapper>
+    </div>
+  );
+}
+
+export default function SelectedWorkSection() {
+  const sectionRef = useReveal({ start: "top 78%", stagger: 0.09 });
+
+  useEffect(() => {
+    const scope = sectionRef.current;
+    if (!scope) return undefined;
+
+    const media = gsap.matchMedia();
+
+    media.add(
+      `${NO_MOTION_QUERY} and (hover: hover) and (pointer: fine)`,
+      () => {
+        const cards = scope.querySelectorAll("[data-project-hover]");
+        const cleanups = [];
+
+        cards.forEach((card) => {
+          const image = card.querySelector("[data-project-image]");
+          const lift = gsap.quickTo(card, "y", {
+            duration: 0.45,
+            ease: "power2.out",
+          });
+          const zoom = (value) =>
+            image &&
+            gsap.to(image, {
+              scale: value,
+              duration: 0.7,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
+
+          const onEnter = () => {
+            lift(-6);
+            zoom(1.05);
+          };
+          const onLeave = () => {
+            lift(0);
+            zoom(1);
+          };
+
+          card.addEventListener("pointerenter", onEnter);
+          card.addEventListener("pointerleave", onLeave);
+          cleanups.push(() => {
+            card.removeEventListener("pointerenter", onEnter);
+            card.removeEventListener("pointerleave", onLeave);
+          });
+        });
+
+        return () => cleanups.forEach((cleanup) => cleanup());
+      },
+    );
+
+    return () => media.revert();
+  }, [sectionRef]);
+
+  const [featured, ...rest] = projects;
+
+  return (
+    <section
+      ref={sectionRef}
       id="work"
-      className="py-20 md:py-24 bg-surface/30"
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      className="border-y border-line bg-paper-alt py-24 md:py-32"
     >
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={fadeInUp}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12"
-        >
-          <div className="max-w-xl">
-            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">
-              Selected Work
-            </p>
-            <h2 className="text-3xl md:text-5xl font-bold text-light tracking-tight">
-              Recent{' '}
-              <span className="text-accent">projects</span>
+      <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+        <div data-reveal className="grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="eyebrow">Selected Work</p>
+            <h2 className="mt-6 font-display text-[clamp(2rem,4vw,3rem)] font-normal leading-[1.08] tracking-[-0.01em] text-ink">
+              Recent <span className="italic text-accent">projects</span>
             </h2>
           </div>
-          <p className="mt-2 md:mt-0 text-muted text-sm max-w-xs">
-            3+ projects shipped with modern tech stack and clean design.
+          <p className="text-sm leading-relaxed text-muted md:col-span-5 md:text-right">
+            3+ projects shipped with a modern tech stack, clean design, and a
+            focus on performance.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={staggerContainer}
-          className="space-y-6"
-        >
-          {projects.map((project, idx) => (
-            <motion.div
-              key={project.title}
-              variants={{
-                hidden: { opacity: 0, y: 40, x: idx % 2 === 0 ? -20 : 20 },
-                visible: { opacity: 1, y: 0, x: 0, transition: { duration: 0.5 } },
-              }}
-              whileHover={{ y: -4 }}
-              className="group grid md:grid-cols-12 gap-0 bg-card rounded-[2rem] border border-white/5 overflow-hidden hover:border-accent/20 transition-colors duration-300 hover:shadow-xl hover:shadow-accent/5"
-            >
-              <div className="md:col-span-5 relative overflow-hidden">
-                <div className="w-full h-56 md:h-full min-h-[240px] relative">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 40vw"
-                  />
-                  <div className="absolute inset-0 bg-dark/40" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <motion.span
-                        className="block text-6xl md:text-7xl font-bold text-light/20"
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        {String(idx + 1).padStart(2, '0')}
-                      </motion.span>
-                      <span className="block text-xs text-accent/60 font-mono mt-2">
-                        {project.type}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="absolute bottom-4 left-4 flex gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-accent/40" />
-                    <span className="w-2 h-2 rounded-full bg-accent/20" />
-                    <span className="w-2 h-2 rounded-full bg-accent/30" />
-                  </div>
-                </div>
-              </div>
+        <div className="mt-12 space-y-6">
+          <ProjectCard project={featured} index={0} featured />
 
-              <div className="md:col-span-7 p-8 md:p-10 flex flex-col justify-center">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-xs font-semibold text-accent uppercase tracking-wider">
-                    {project.type}
-                  </span>
-                  <span className="text-xs text-muted/50">|</span>
-                  <span className="text-xs text-muted/50 font-mono">
-                    {project.year}
-                  </span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-light group-hover:text-accent transition-colors duration-200">
-                  {project.title}
-                </h3>
-                <p className="mt-3 text-sm text-muted leading-relaxed max-w-lg">
-                  {project.desc}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-3 py-1 rounded-full bg-dark/40 text-xs text-accent/80 border border-accent/10 font-medium"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/link"
-                  >
-                    <span>Lihat Demo</span>
-                    <svg
-                      className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1 group-hover/link:-translate-y-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+          <div className="grid gap-6 md:grid-cols-2">
+            {rest.map((project, idx) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={idx + 1}
+              />
+            ))}
+          </div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

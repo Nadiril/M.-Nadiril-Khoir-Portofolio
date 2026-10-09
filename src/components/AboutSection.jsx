@@ -1,71 +1,83 @@
 'use client';
 
-import { useRef } from 'react';
 import Image from 'next/image';
-import { motion, useInView } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiInstagram } from 'react-icons/fi';
-import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer, staggerFast } from '@/lib/animations';
+import { PiGithubLogo, PiLinkedinLogo, PiInstagramLogo } from 'react-icons/pi';
+import { useReveal } from '@/lib/animations';
 
-const skills = ['HTML', 'CSS', 'JavaScript', 'React.js', 'Next.js', 'Tailwind CSS', 'Express.js', 'MySQL', ];
+const socials = [
+  { icon: PiGithubLogo, label: 'GitHub', href: 'https://github.com/Nadiril' },
+  {
+    icon: PiLinkedinLogo,
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/nadirilkhoir',
+  },
+  {
+    icon: PiInstagramLogo,
+    label: 'Instagram',
+    href: 'https://www.instagram.com/nadirilkhoir?igsh=NnczbXR6aWw3ZGpw',
+  },
+];
+
+const education = [
+  {
+    period: '2025 — Sekarang',
+    school: 'STIKOM PGRI Banyuwangi',
+    desc: 'D3 Manajemen Informatika',
+  },
+  {
+    period: '2023 — 2025',
+    school: 'MA. Ibrahimy Secang Kalipuro ',
+    desc: 'Ilmu pengetahuan Sosial (IPS)',
+  },
+];
 
 export default function AboutSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const sectionRef = useReveal({ start: 'top 78%', stagger: 0.1 });
 
   return (
-    <motion.section
-      ref={ref}
-      id="about"
-      className="py-16 md:py-20"
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-    >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <motion.div className="md:col-span-5" variants={fadeInLeft}>
-            <div className="relative">
-              <div className="absolute -inset-3 bg-accent/10 rounded-[2rem] blur-xl" />
-              <motion.div
-                className="relative aspect-[4/5] rounded-[2rem] bg-gradient-to-br from-accent/20 to-card border border-accent/10 overflow-hidden flex items-center justify-center"
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.3 }}
-              >
+    <section ref={sectionRef} id="profile" className="py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+        <div className="grid gap-x-16 gap-y-10 md:grid-cols-12">
+          <div
+            data-reveal
+            className="order-1 md:col-span-7 md:col-start-6 md:row-start-1"
+          >
+            <p className="eyebrow">Profile</p>
+            <h2 className="mt-6 font-display text-[clamp(2rem,4vw,3rem)] font-normal leading-[1.08] tracking-[-0.01em] text-ink">
+              M. Nadiril{' '}
+              <span className="italic text-accent">Khoir</span>
+            </h2>
+            <p className="mt-4 text-sm uppercase tracking-[0.2em] text-muted">
+              Full Stack Developer
+            </p>
+          </div>
+
+          <div
+            data-reveal
+            className="relative order-2 mx-auto w-full max-w-xs sm:max-w-sm md:col-span-5 md:col-start-1 md:row-span-2 md:row-start-1 md:mx-0 md:max-w-md md:self-start"
+          >
+            <div
+              aria-hidden="true"
+              className="absolute -inset-5 rounded-[2.5rem] bg-accent/15 blur-2xl"
+            />
+            <figure className="glass relative rounded-[2rem] p-2">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[1.75rem] bg-paper-alt">
                 <Image
                   src="/Profile.webp"
-                  alt="Nadiril Khoir"
+                  alt="Portrait of M. Nadiril Khoir"
                   fill
+                  sizes="(max-width: 768px) 80vw, 32vw"
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 40vw"
                   preload
                 />
-                <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-dark/60 to-transparent" />
-              </motion.div>
-            </div>
-          </motion.div>
+              </div>
+            </figure>
+          </div>
 
-          <motion.div className="md:col-span-7" variants={staggerContainer}>
-            <motion.p
-              variants={fadeInUp}
-              className="text-accent text-sm font-semibold tracking-widest uppercase mb-4"
-            >
-              About
-            </motion.p>
-            <motion.h2
-              variants={fadeInUp}
-              className="text-3xl md:text-5xl font-bold text-light tracking-tight"
-            >
-              M. Nadiril{' '}
-              <span className="text-accent">Khoir</span>
-            </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="mt-2 text-base text-muted font-medium"
-            >
-              Full Stack Developer
-            </motion.p>
-            <motion.div
-              variants={fadeInUp}
-              className="mt-6 space-y-4 text-muted leading-relaxed"
+          <div className="order-3 md:col-span-7 md:col-start-6 md:row-start-2">
+            <div
+              data-reveal
+              className="space-y-5 text-base leading-relaxed text-ink-soft md:text-[1.0625rem]"
             >
               <p>
                 Saya adalah mahasiswa D3 Manajemen Informatika yang fokus
@@ -73,51 +85,56 @@ export default function AboutSection() {
                 Tailwind CSS, Express, dan database seperti MySQL/Supabase.
               </p>
               <p>
-                Saya percaya website yang baik adalah gabungan antara desain
-                yang bersih, performa cepat, dan user experience yang
-                menyenangkan. Setiap project saya kerjakan dengan perhatian pada
-                detail kecil yang membuat perbedaan besar.
+                Saya percaya website yang baik adalah gabungan antara desain yang
+                bersih, performa cepat, dan user experience yang menyenangkan.
+                Setiap project saya kerjakan dengan perhatian pada detail kecil
+                yang membuat perbedaan besar.
               </p>
-            </motion.div>
-            <motion.div
-              variants={staggerFast}
-              className="mt-6 flex flex-wrap gap-2.5"
-            >
-              {skills.map((skill) => (
-                <motion.span
-                  key={skill}
-                  variants={fadeInUp}
-                  className="px-3.5 py-1.5 rounded-full bg-card border border-white/5 text-xs text-accent font-medium"
+            </div>
+
+            <p data-reveal className="eyebrow mt-10">
+              Education
+            </p>
+            <ul data-reveal className="mt-5 border-t border-line">
+              {education.map((item) => (
+                <li
+                  key={item.school}
+                  className="flex flex-col gap-1 border-b border-line py-5 sm:flex-row sm:items-baseline sm:gap-6"
                 >
-                  {skill}
-                </motion.span>
+                  <span className="font-display text-sm tabular-nums text-accent sm:w-32 sm:shrink-0 sm:whitespace-nowrap">
+                    {item.period}
+                  </span>
+                  <div>
+                    <h3 className="text-[0.95rem] font-medium tracking-wide text-ink">
+                      {item.school}
+                    </h3>
+                    {item.desc ? (
+                      <p className="mt-1 text-sm leading-relaxed text-muted">
+                        {item.desc}
+                      </p>
+                    ) : null}
+                  </div>
+                </li>
               ))}
-            </motion.div>
-            <motion.div
-              variants={staggerFast}
-              className="mt-6 flex items-center gap-4"
-            >
-              {[
-                { icon: FiGithub, href: 'https://github.com/Nadiril' },
-                { icon: FiLinkedin, href: 'https://www.linkedin.com/in/nadirilkhoir' },
-                { icon: FiInstagram, href: 'https://www.instagram.com/nadirilkhoir?igsh=NnczbXR6aWw3ZGpw' },
-              ].map(({ icon: Icon, href }) => (
-                <motion.a
-                  key={href}
+            </ul>
+
+            <div data-reveal className="mt-10 flex items-center gap-3">
+              {socials.map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  className="w-10 h-10 rounded-xl bg-card border border-white/5 flex items-center justify-center text-muted hover:text-accent hover:border-accent/30 transition-colors"
+                  aria-label={label}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-ink-soft transition-colors duration-200 hover:border-accent hover:text-accent"
                 >
-                  <Icon className="w-5 h-5" />
-                </motion.a>
+                  <Icon aria-hidden="true" className="h-5 w-5" />
+                </a>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

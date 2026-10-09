@@ -1,27 +1,49 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bodoni = Bodoni_Moda({
+  variable: "--font-bodoni",
   subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jost = Jost({
+  variable: "--font-jost",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
-  title: "Nadiril Khoir | Full Stack Developer",
+  title: "M. Nadiril Khoir | Full Stack Developer",
   description:
-    "Portfolio of Nadiril Khoir — a Full Stack Developer focused on clean design, fast performance, and useful digital products.",
+    "Portfolio of M. Nadiril Khoir — a Full Stack Developer building clean, fast, and thoughtful digital products for small businesses and creators.",
+  openGraph: {
+    title: "M. Nadiril Khoir | Full Stack Developer",
+    description:
+      "Clean, fast, and thoughtful digital products for small businesses and creators.",
+    images: [{ url: "/Profile.webp" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "M. Nadiril Khoir | Full Stack Developer",
+    description:
+      "Clean, fast, and thoughtful digital products for small businesses and creators.",
+    images: ["/Profile.webp"],
+  },
+};
+
+export const viewport = {
+  themeColor: "#f7f6f2",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${bodoni.variable} ${jost.variable}`}
+      suppressHydrationWarning
     >
       <body className="min-h-screen antialiased">{children}</body>
     </html>
