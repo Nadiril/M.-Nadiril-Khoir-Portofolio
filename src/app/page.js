@@ -5,9 +5,6 @@ import HeroSection from "@/components/HeroSection";
 const AboutSection = dynamic(() => import("@/components/AboutSection"), {
   loading: () => <div className="py-24 md:py-32" />,
 });
-const SkillsSection = dynamic(() => import("@/components/SkillsSection"), {
-  loading: () => <div className="py-24 md:py-32" />,
-});
 const SelectedWorkSection = dynamic(() => import("@/components/SelectedWorkSection"), {
   loading: () => <div className="py-24 md:py-32" />,
 });
@@ -25,7 +22,6 @@ export default function Home() {
       <main>
         <HeroSection />
         <AboutSection />
-        <SkillsSection />
         <SelectedWorkSection />
         <ContactSection />
       </main>

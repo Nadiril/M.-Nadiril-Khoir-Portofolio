@@ -158,3 +158,14 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Hero is a full-viewport screen (min-h-svh). On short viewports the default
+   section padding would push the copy past the fold and expose the next
+   section, so it is trimmed here. Unlayered on purpose: it must win over the
+   responsive padding utilities. */
+@media (max-height: 900px) {
+  .hero {
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+  }
+}

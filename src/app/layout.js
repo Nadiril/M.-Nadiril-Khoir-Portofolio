@@ -15,11 +15,11 @@ const jost = Jost({
 });
 
 export const metadata = {
-  title: "M. Nadiril Khoir | Full Stack Developer",
+  title: "Nadiril Dev",
   description:
     "Portfolio of M. Nadiril Khoir — a Full Stack Developer building clean, fast, and thoughtful digital products for small businesses and creators.",
   openGraph: {
-    title: "M. Nadiril Khoir | Full Stack Developer",
+    title: "Nadiril Dev",
     description:
       "Clean, fast, and thoughtful digital products for small businesses and creators.",
     images: [{ url: "/Profile.webp" }],
@@ -27,7 +27,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "M. Nadiril Khoir | Full Stack Developer",
+    title: "Nadiril Dev",
     description:
       "Clean, fast, and thoughtful digital products for small businesses and creators.",
     images: ["/Profile.webp"],
@@ -45,7 +45,19 @@ export default function RootLayout({ children }) {
       className={`${bodoni.variable} ${jost.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var n=performance.getEntriesByType('navigation')[0];" +
+              "if(!n||n.type!=='reload')return;" +
+              "if('scrollRestoration' in window.history){window.history.scrollRestoration='manual';}" +
+              "if(window.location.hash){window.history.replaceState(null,'',window.location.pathname+window.location.search);}" +
+              "window.scrollTo(0,0);}catch(e){}})();",
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

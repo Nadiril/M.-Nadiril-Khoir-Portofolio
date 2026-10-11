@@ -13,6 +13,7 @@ const projects = [
     desc: "Aplikasi berbasis web dengan fitur QR code check-in dan dashboard real-time untuk acara dan kunjungan.",
     tech: ["Next.js", "Tailwind CSS", "Supabase"],
     image: "/Project Buku Tamu Digital.webp",
+    link: "https://tamuin.vercel.app",
   },
   {
     title: "E-commerce Jajannya Mimitha",
@@ -24,12 +25,12 @@ const projects = [
     link: "https://jajannya-mimitha.vercel.app",
   },
   {
-    title: "Portofolio Habib Rahman",
+    title: "Magangku",
     type: "Platform",
     year: "2026",
-    desc: "Website portofolio pribadi yang menampilkan proyek, keterampilan, dan pengalaman profesional dengan desain responsif dan interaktif.",
-    tech: ["HTML", "CSS"],
-    image: "/Project Portofolio Habib Rahman.webp",
+    desc: "Aplikasi absensi berbasis mobile dengan fitur check-in dan check-out dengan qr-code, dashboard real-time serta laporan presensi.",
+    tech: ["Supabase", "React Native"],
+    image: "/magangku.webp",
   },
 ];
 
@@ -62,8 +63,18 @@ function ProjectCard({ project, index, featured = false }) {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-ink/20 to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-ink/20 to-transparent transition-colors duration-300 group-hover:from-ink/45"
       />
+      {interactive && (
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        >
+          <span className="flex h-16 w-16 translate-y-2 scale-75 items-center justify-center rounded-full bg-accent text-white opacity-0 shadow-[0_18px_36px_-14px_rgba(21,23,26,0.6)] transition-all duration-300 ease-out motion-safe:group-hover:translate-y-0 motion-safe:group-hover:scale-100 motion-safe:group-hover:opacity-100 motion-safe:group-focus-visible:translate-y-0 motion-safe:group-focus-visible:scale-100 motion-safe:group-focus-visible:opacity-100">
+            <PiArrowUpRight aria-hidden="true" className="h-6 w-6" />
+          </span>
+        </span>
+      )}
     </div>
   );
 
@@ -209,8 +220,8 @@ export default function SelectedWorkSection() {
             </h2>
           </div>
           <p className="text-sm leading-relaxed text-muted md:col-span-5 md:text-right">
-            3+ projects shipped with a modern tech stack, clean design, and a
-            focus on performance.
+            Berikut adalah beberapa proyek yang telah saya kerjakan, menampilkan
+            keterampilan dan pengalaman saya dalam pengembangan.
           </p>
         </div>
 

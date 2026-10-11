@@ -4,12 +4,6 @@ import { Fragment, useRef } from 'react';
 import { PiArrowUpRight, PiArrowDown } from 'react-icons/pi';
 import { gsap, EASE, NO_MOTION_QUERY, useIsoLayoutEffect } from '@/lib/animations';
 
-const stats = [
-  { value: '3+', label: 'Projects shipped' },
-  { value: 'Full-Stack', label: 'End-to-end build' },
-  { value: 'UI/UX', label: 'Design-minded' },
-];
-
 function WordMask({ children }) {
   return (
     <span className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em]">
@@ -19,6 +13,15 @@ function WordMask({ children }) {
     </span>
   );
 }
+
+const stack = [
+  'React Native',
+  'Next.js',
+  'Tailwind CSS',
+  'Express.js',
+  'MySQL',
+  
+];
 
 function splitWords(text) {
   return text.split(' ').map((word, index, words) => (
@@ -42,9 +45,13 @@ export default function HeroSection() {
           .from('[data-hero="eyebrow"]', { y: 12, opacity: 0, duration: 0.6 }, 0)
           .from('[data-hero-word]', { yPercent: 115, duration: 0.8, stagger: 0.03 }, 0.1)
           .from('[data-hero="sub"]', { y: 14, opacity: 0, duration: 0.65 }, 0.4)
-          .from('[data-hero="cta"]', { y: 12, opacity: 0, duration: 0.5, stagger: 0.07 }, 0.55)
-          .from('[data-hero="stat"]', { y: 12, opacity: 0, duration: 0.5, stagger: 0.07 }, 0.7)
-          .from('[data-hero="scroll"]', { opacity: 0, duration: 0.55 }, 1);
+          .from('[data-hero="stack"]', { y: 12, opacity: 0, duration: 0.5 }, 0.5)
+          .from(
+            '[data-hero="cta"]',
+            { y: 12, opacity: 0, duration: 0.5, stagger: 0.07 },
+            0.65
+          )
+          .from('[data-hero="scroll"]', { opacity: 0, duration: 0.55 }, 0.9);
       }, ref);
 
       return () => ctx.revert();
@@ -57,7 +64,7 @@ export default function HeroSection() {
     <section
       ref={ref}
       id="home"
-      className="relative overflow-hidden pt-28 pb-24 md:pt-36 md:pb-32 lg:pt-44"
+      className="hero relative flex min-h-svh flex-col justify-center overflow-hidden pt-28 pb-24 md:pt-36 md:pb-32 lg:pt-44"
     >
       <div
         aria-hidden="true"
@@ -92,9 +99,21 @@ export default function HeroSection() {
             data-hero="sub"
             className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-soft"
           >
-            Full-stack development for small businesses and creators — clean
-            architecture, fast performance, and interfaces that solve real
-            problems instead of adding noise.
+          Helping businesses grow by developing digital products that are relevant, solution-oriented, and deliver long-term results.
+          </p>
+
+          <p
+            data-hero="stack"
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.2em] text-muted"
+          >
+            {stack.map((item, index) => (
+              <Fragment key={item}>
+                <span>{item}</span>
+                {index < stack.length - 1 ? (
+                  <span aria-hidden="true" className="h-1 w-1 rounded-full bg-line-strong" />
+                ) : null}
+              </Fragment>
+            ))}
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -117,19 +136,6 @@ export default function HeroSection() {
               View Selected Work
             </a>
           </div>
-
-          <dl className="mt-12 flex flex-wrap justify-center gap-x-12 gap-y-6 border-t border-line pt-8">
-            {stats.map((stat) => (
-              <div data-hero="stat" key={stat.label} className="flex flex-col-reverse">
-                <dt className="mt-2 text-xs uppercase tracking-[0.18em] text-muted">
-                  {stat.label}
-                </dt>
-                <dd className="font-display text-2xl leading-none text-ink md:text-[1.75rem]">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
 
         <div className="mt-14 hidden justify-center md:flex">

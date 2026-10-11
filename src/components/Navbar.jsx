@@ -7,7 +7,6 @@ import { gsap } from '@/lib/animations';
 const navLinks = [
   { href: '#home', label: 'Home' },
   { href: '#profile', label: 'Profile' },
-  { href: '#skills', label: 'Skills' },
   { href: '#work', label: 'Work' },
   { href: '#contact', label: 'Contact' },
 ];
